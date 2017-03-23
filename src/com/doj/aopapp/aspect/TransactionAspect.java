@@ -6,7 +6,7 @@ package com.doj.aopapp.aspect;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.springframework.core.annotation.Order;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,8 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-@Order(1)
-public class TransactionAspect {
+public class TransactionAspect implements Ordered{
 	
 	/**
 	 * Declaring before advice for all transfer methods whose taking three arguments of any type 
@@ -28,5 +27,10 @@ public class TransactionAspect {
 	public void beforeAdviceForTransferMethods(JoinPoint jp) throws Throwable {
         System.out.println("****TransactionAspect.beforeAdviceForTransferMethods() " + jp.getSignature().getName());
     }
+
+	@Override
+	public int getOrder() {
+		return 1;
+	}
 	
 }
